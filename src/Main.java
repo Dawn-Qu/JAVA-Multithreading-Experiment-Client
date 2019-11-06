@@ -10,16 +10,16 @@ public class Main {
         System.out.print("请选择菜单：");
     }
 
-    public static void main(String[] args){
-        showMenuLogIn();
-        Scanner scanner=new Scanner(System.in);
+    public static User logIn(){
         User user;
         String name;
         String password;
+        Scanner scanner=new Scanner(System.in);
         int choice=scanner.nextInt();
         scanner.nextLine();
         switch(choice){
             case 1:
+
                 System.out.print("请输入用户名：");
                 name=scanner.nextLine();
                 System.out.print("请输入密码：");
@@ -27,10 +27,18 @@ public class Main {
                 user=DataProcessing.search(name,password);
                 user.showMenu();
                 choice=scanner.nextInt();
-                //待响应用户输入
-                break;
+                user.choose();
+                return user;
+                //break;
             case 2:
                 System.exit(0);
         }
+        return user;
+    }
+
+    public static void main(String[] args){
+        showMenuLogIn();
+        User user=logIn();
+
     }
 }
