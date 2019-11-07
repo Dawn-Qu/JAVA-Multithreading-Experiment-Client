@@ -9,6 +9,8 @@ public abstract class User {
 		this.password=password;
 		this.role=role;				
 	}
+
+	public abstract void choose();
 	
 	public boolean changeSelfInfo(String password){
 		//写用户信息到存储
@@ -59,6 +61,9 @@ public abstract class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
+	public String toString(){
+		return name+" "+role;
+	}
 
 }

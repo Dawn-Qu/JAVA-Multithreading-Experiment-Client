@@ -13,4 +13,9 @@ public class Browser extends User {
         System.out.println("**********************");
         System.out.print("请选择菜单：");
     }
+
+    @Override
+    public void choose() {
+
+    }
 }

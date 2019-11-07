@@ -13,6 +13,12 @@ public class Operator extends User{
         System.out.println("**********************");
         System.out.print("请选择菜单：");
     }
+
+    @Override
+    public void choose() {
+
+    }
+
     public boolean uploadFile(String filename){
         System.out.println("上传文件... ...");
         return true;

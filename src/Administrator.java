@@ -1,4 +1,5 @@
 import java.util.Enumeration;
+import java.util.Scanner;
 
 public class Administrator extends User {
     Administrator(String name,String password,String role){
@@ -18,6 +19,38 @@ public class Administrator extends User {
         System.out.println("8.退  出");
         System.out.println("**********************");
         System.out.print("请选择菜单：");
+    }
+    public void choose(){
+        Scanner scanner=new Scanner(System.in);
+        switch(scanner.nextInt()){
+            case 1:
+                System.out.println("修改成功");
+                break;
+            case 2:
+                System.out.println("删除成功");
+                break;
+            case 3:
+                System.out.println("新增成功");
+                break;
+            case 4:
+                Enumeration e=DataProcessing.getAllUser();
+                while(e.hasMoreElements()){
+                    System.out.println(e.nextElement());
+                }
+                break;
+            case 5:
+                System.out.println("下载成功");
+                break;
+            case 6:
+                System.out.println("文件列表");
+                break;
+            case 7:
+                System.out.println("修改（本人）密码成功");
+                break;
+            case 8:
+                System.exit(0);
+                break;
+        }
     }
     public boolean changeOtherUserInfo(User user){
         System.out.println("修改成功");
