@@ -20,9 +20,9 @@ public class Administrator extends User {
         System.out.println("**********************");
         System.out.print("请选择菜单：");
     }
-    public void choose(){
-        Scanner scanner=new Scanner(System.in);
-        switch(scanner.nextInt()){
+    public void choose(int choice){
+
+        switch(choice){
             case 1:
                 System.out.println("修改成功");
                 break;
@@ -50,6 +50,8 @@ public class Administrator extends User {
             case 8:
                 System.exit(0);
                 break;
+            default:
+
         }
     }
     public boolean changeOtherUserInfo(User user){

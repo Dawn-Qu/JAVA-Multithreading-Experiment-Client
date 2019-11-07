@@ -25,15 +25,23 @@ public class Main {
                 System.out.print("请输入密码：");
                 password=scanner.nextLine();
                 user=DataProcessing.search(name,password);
-                user.showMenu();
-                choice=scanner.nextInt();
-                user.choose();
-                return user;
+                if(user==null) {
+                    System.out.println("密码错误");
+                    break;
+                }
+
+                while(true){
+                    user.showMenu();
+                    choice=scanner.nextInt();
+                    user.choose(choice);
+                }
+
                 //break;
             case 2:
                 System.exit(0);
         }
-        return user;
+        System.exit(1);
+        return null;
     }
 
     public static void main(String[] args){

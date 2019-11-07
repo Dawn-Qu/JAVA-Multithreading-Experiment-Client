@@ -15,8 +15,24 @@ public class Operator extends User{
     }
 
     @Override
-    public void choose() {
-
+    public void choose(int choice) {
+        switch (choice){
+            case 1:
+                System.out.println("上传成功");
+                break;
+            case 2:
+                System.out.println("下载成功");
+                break;
+            case 3:
+                System.out.println("文件列表");
+                break;
+            case 4:
+                System.out.println("修改成功");
+                break;
+            case 5:
+                System.exit(0);
+                break;
+        }
     }
 
     public boolean uploadFile(String filename){

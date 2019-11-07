@@ -10,7 +10,7 @@ public abstract class User {
 		this.role=role;				
 	}
 
-	public abstract void choose();
+	public abstract void choose(int choice);
 	
 	public boolean changeSelfInfo(String password){
 		//写用户信息到存储

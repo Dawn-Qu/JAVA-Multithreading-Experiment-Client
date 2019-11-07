@@ -1,3 +1,5 @@
+import java.util.Enumeration;
+
 public class Browser extends User {
     Browser(String name,String password,String role){
         super(name,password,role);
@@ -15,7 +17,22 @@ public class Browser extends User {
     }
 
     @Override
-    public void choose() {
+    public void choose(int choice) {
+        switch(choice){
+            case 1:
+                System.out.println("下载成功");
+                break;
+            case 2:
+                System.out.println("文件列表");
+                break;
+            case 3:
+                System.out.println("修改成功");
+                break;
+            case 4:
+                System.exit(0);
+                break;
+            default:
 
+        }
     }
 }
