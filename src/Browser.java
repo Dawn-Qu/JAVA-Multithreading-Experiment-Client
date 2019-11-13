@@ -1,4 +1,7 @@
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.Scanner;
 
 public class Browser extends User {
     Browser(String name,String password,String role){
@@ -18,21 +21,38 @@ public class Browser extends User {
 
     @Override
     public void choose(int choice) {
-        switch(choice){
-            case 1:
-                System.out.println("下载成功");
-                break;
-            case 2:
-                System.out.println("文件列表");
-                break;
-            case 3:
-                System.out.println("修改成功");
-                break;
-            case 4:
-                System.exit(0);
-                break;
-            default:
+        try {
+            Scanner scanner=new Scanner(System.in);
+            switch (choice) {
+                case 1: {
+                    showFileList();
+                    System.out.print("请输入文件名：");
+                    downloadFile(scanner.nextLine());
+                    System.out.println("下载成功");
+                    break;
+                }
+                case 2: {
+                    showFileList();
+                    break;
+                }
+                case 3: {
+                    System.out.print("请输入新密码：");
+                    DataProcessing.update(getName(),scanner.nextLine(),getRole());
+                    System.out.println("修改成功");
+                    break;
+                }
+                case 4:
+                    System.exit(0);
+                    break;
+                default:
 
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
         }
     }
 }

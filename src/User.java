@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.sql.SQLException;
 
 public abstract class User {
 	private String name;
@@ -11,8 +13,8 @@ public abstract class User {
 	}
 
 	public abstract void choose(int choice);
-	
-	public boolean changeSelfInfo(String password){
+
+	public boolean changeSelfInfo(String password) throws SQLException {
 		//写用户信息到存储
 		if (DataProcessing.update(name, password, role)){
 			this.password=password;
@@ -23,18 +25,25 @@ public abstract class User {
 	}
 	
 	public abstract void showMenu();
-	
-	public boolean downloadFile(String filename){
+
+	public boolean downloadFile(String filename) throws IOException{
+		double ranValue=Math.random();
+		if (ranValue>0.5)
+			throw new IOException( "Error in accessing file" );
 		System.out.println("下载文件... ...");
 		return true;
 	}
-	
-	public void showFileList(){
+
+	public void showFileList() throws SQLException{
+		double ranValue=Math.random();
+		if (ranValue>0.5)
+			throw new SQLException( "Error in accessing file DB" );
 		System.out.println("列表... ...");
 	}
-	
+
+
 	public void exitSystem(){
-		System.out.println("系统退出，谢谢使用！");
+		System.out.println("系统退出, 谢谢使用 ! ");
 		System.exit(0);
 	}
 

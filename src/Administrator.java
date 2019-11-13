@@ -1,3 +1,6 @@
+import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Scanner;
 
@@ -21,37 +24,70 @@ public class Administrator extends User {
         System.out.print("请选择菜单：");
     }
     public void choose(int choice){
-
-        switch(choice){
-            case 1:
-                System.out.println("修改成功");
-                break;
-            case 2:
-                System.out.println("删除成功");
-                break;
-            case 3:
-                System.out.println("新增成功");
-                break;
-            case 4:
-                Enumeration e=DataProcessing.getAllUser();
-                while(e.hasMoreElements()){
-                    System.out.println(e.nextElement());
+        Scanner scanner=new Scanner(System.in);
+        try {
+            switch (choice) {
+                case 1: {
+                    String name, password;
+                    System.out.print("请输入用户名:");
+                    name = scanner.nextLine();
+                    System.out.print("请输入密码:");
+                    password = scanner.nextLine();
+                    DataProcessing.update(name,password,DataProcessing.searchUser(name).getRole());
+                    break;
                 }
-                break;
-            case 5:
-                System.out.println("下载成功");
-                break;
-            case 6:
-                System.out.println("文件列表");
-                break;
-            case 7:
-                System.out.println("修改（本人）密码成功");
-                break;
-            case 8:
-                System.exit(0);
-                break;
-            default:
+                case 2: {
+                    System.out.print("请输入用户名：");
+                    deleteOtherUser(DataProcessing.searchUser(scanner.nextLine()));
+                    break;
+                }
+                case 3: {
+                    String name, password, role;
+                    System.out.print("请输入用户名:");
+                    name = scanner.nextLine();
+                    System.out.print("请输入密码:");
+                    password = scanner.nextLine();
+                    System.out.print("请输入角色:");
+                    role = scanner.nextLine();
+                    DataProcessing.insert(name, password, role);
+                    break;
+                }
+                case 4: {
+                    Enumeration e = DataProcessing.getAllUser();
+                    while (e.hasMoreElements()) {
+                        System.out.println(e.nextElement());
+                    }
+                    break;
+                }
+                case 5: {
+                    showFileList();
+                    System.out.print("请输入文件名：");
+                    downloadFile(scanner.nextLine());
+                    System.out.println("下载成功");
+                    break;
+                }
+                case 6: {
+                    showUserList();
+                    break;
+                }
+                case 7: {
+                    System.out.print("请输入新密码：");
+                    DataProcessing.update(getName(),scanner.nextLine(),getRole());
+                    System.out.println("修改成功!");
+                    break;
+                }
+                case 8:
+                    System.exit(0);
+                    break;
+                default:
 
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
         }
     }
     public boolean changeOtherUserInfo(User user){
@@ -66,12 +102,18 @@ public class Administrator extends User {
         System.out.println("新增用户成功");
         return true;
     }
-    public void showUserList(){
-        Enumeration<User> cursor=DataProcessing.getAllUser();
-        while(cursor.hasMoreElements()){
-            System.out.println(cursor.nextElement());
+    public void showUserList() {
+        try {
+            Enumeration<User> cursor = DataProcessing.getAllUser();
+            while (cursor.hasMoreElements()) {
+                System.out.println(cursor.nextElement());
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
         }
     }
+
 
 
 }

@@ -1,4 +1,6 @@
 import java.io.Console;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
@@ -17,29 +19,37 @@ public class Main {
         Scanner scanner=new Scanner(System.in);
         int choice=scanner.nextInt();
         scanner.nextLine();
-        switch(choice){
-            case 1:
+        try {
+            switch (choice) {
+                case 1:
 
-                System.out.print("请输入用户名：");
-                name=scanner.nextLine();
-                System.out.print("请输入密码：");
-                password=scanner.nextLine();
-                user=DataProcessing.search(name,password);
-                if(user==null) {
-                    System.out.println("密码错误");
-                    break;
-                }
+                    System.out.print("请输入用户名：");
+                    name = scanner.nextLine();
+                    System.out.print("请输入密码：");
+                    password = scanner.nextLine();
+                    user = DataProcessing.search(name, password);
+                    if (user == null) {
+                        System.out.println("密码错误");
+                        break;
+                    }
 
-                while(true){
-                    user.showMenu();
-                    choice=scanner.nextInt();
-                    user.choose(choice);
-                }
+                    while (true) {
+                        user.showMenu();
+                        choice = scanner.nextInt();
+                        user.choose(choice);
+                    }
 
-                //break;
-            case 2:
-                System.exit(0);
+                    //break;
+                case 2:
+                    System.exit(0);
+            }
         }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        /*catch(IOException e){
+            System.out.println(e.getMessage());
+        }*/
         System.exit(1);
         return null;
     }
