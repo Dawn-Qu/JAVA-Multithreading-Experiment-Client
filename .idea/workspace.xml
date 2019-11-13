@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e40d4be6-83d8-4e1b-bdde-a16058e34869" name="Default Changelist" comment="第二次实验基本完成，添加了老师给定方法的异常处理。">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="e40d4be6-83d8-4e1b-bdde-a16058e34869" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JAVA practice/Administrator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JAVA practice/Administrator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JAVA practice/Browser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JAVA practice/Browser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JAVA practice/DataProcessing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JAVA practice/DataProcessing.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JAVA practice/Operator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JAVA practice/Operator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JAVA practice/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JAVA practice/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Administrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Browser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Browser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataProcessing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Operator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Operator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,8 +63,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Administrator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="35" column="88" selection-start-line="35" selection-start-column="88" selection-end-line="35" selection-end-column="88" />
+            <state relative-caret-position="158">
+              <caret line="37" column="17" lean-forward="true" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -304,7 +297,7 @@
       <workItem from="1573040746325" duration="3495000" />
       <workItem from="1573131151608" duration="4512000" />
       <workItem from="1573135745831" duration="72000" />
-      <workItem from="1573624397338" duration="9573000" />
+      <workItem from="1573624397338" duration="9596000" />
     </task>
     <task id="LOCAL-00001" summary="命令行菜单界面">
       <created>1573052464758</created>
@@ -327,11 +320,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573135652607</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="第二次实验基本完成，添加了老师给定方法的异常处理。">
+      <created>1573636000528</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1573636000528</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25740000" />
+    <option name="totallyTimeSpent" value="25763000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -629,8 +629,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Administrator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="35" column="88" selection-start-line="35" selection-start-column="88" selection-end-line="35" selection-end-column="88" />
+        <state relative-caret-position="158">
+          <caret line="37" column="17" lean-forward="true" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
