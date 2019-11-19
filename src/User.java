@@ -16,7 +16,7 @@ public abstract class User {
 
 	public boolean changeSelfInfo(String password) throws SQLException {
 		//写用户信息到存储
-		if (DataProcessing.update(name, password, role)){
+		if (DataProcessing.updateUser(name, password, role)){
 			this.password=password;
 			System.out.println("修改成功");
 			return true;

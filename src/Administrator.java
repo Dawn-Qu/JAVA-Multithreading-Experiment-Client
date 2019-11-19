@@ -23,6 +23,7 @@ public class Administrator extends User {
         System.out.println("**********************");
         System.out.print("请选择菜单：");
     }
+    @Override
     public void choose(int choice){
         Scanner scanner=new Scanner(System.in);
         try {
@@ -33,7 +34,7 @@ public class Administrator extends User {
                     name = scanner.nextLine();
                     System.out.print("请输入密码:");
                     password = scanner.nextLine();
-                    DataProcessing.update(name,password,DataProcessing.searchUser(name).getRole());
+                    DataProcessing.updateUser(name,password,DataProcessing.searchUser(name).getRole());
                     break;
                 }
                 case 2: {
@@ -49,7 +50,7 @@ public class Administrator extends User {
                     password = scanner.nextLine();
                     System.out.print("请输入角色:");
                     role = scanner.nextLine();
-                    DataProcessing.insert(name, password, role);
+                    DataProcessing.insertUser(name, password, role);
                     break;
                 }
                 case 4: {
@@ -72,7 +73,7 @@ public class Administrator extends User {
                 }
                 case 7: {
                     System.out.print("请输入新密码：");
-                    DataProcessing.update(getName(),scanner.nextLine(),getRole());
+                    DataProcessing.updateUser(getName(),scanner.nextLine(),getRole());
                     System.out.println("修改成功!");
                     break;
                 }

@@ -27,7 +27,7 @@ public class Main {
                     name = scanner.nextLine();
                     System.out.print("请输入密码：");
                     password = scanner.nextLine();
-                    user = DataProcessing.search(name, password);
+                    user = DataProcessing.searchUser(name, password);
                     if (user == null) {
                         System.out.println("密码错误");
                         break;
@@ -57,6 +57,5 @@ public class Main {
     public static void main(String[] args){
         showMenuLogIn();
         User user=logIn();
-
     }
 }

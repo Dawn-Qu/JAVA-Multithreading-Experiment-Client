@@ -37,7 +37,7 @@ public class Browser extends User {
                 }
                 case 3: {
                     System.out.print("请输入新密码：");
-                    DataProcessing.update(getName(),scanner.nextLine(),getRole());
+                    DataProcessing.updateUser(getName(),scanner.nextLine(),getRole());
                     System.out.println("修改成功");
                     break;
                 }
