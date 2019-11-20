@@ -39,7 +39,7 @@ public class Administrator extends User {
                 }
                 case 2: {
                     System.out.print("请输入用户名：");
-                    deleteOtherUser(DataProcessing.searchUser(scanner.nextLine()));
+                    DataProcessing.deleteUser(scanner.nextLine());
                     break;
                 }
                 case 3: {
@@ -54,10 +54,7 @@ public class Administrator extends User {
                     break;
                 }
                 case 4: {
-                    Enumeration e = DataProcessing.getAllUser();
-                    while (e.hasMoreElements()) {
-                        System.out.println(e.nextElement());
-                    }
+                    showUserList();
                     break;
                 }
                 case 5: {
@@ -68,7 +65,7 @@ public class Administrator extends User {
                     break;
                 }
                 case 6: {
-                    showUserList();
+                    showFileList();
                     break;
                 }
                 case 7: {
@@ -95,10 +92,7 @@ public class Administrator extends User {
         System.out.println("修改成功");
         return true;
     }
-    public boolean deleteOtherUser(User user){
-        System.out.println("删除成功");
-        return true;
-    }
+
     public boolean addNewUser(User user){
         System.out.println("新增用户成功");
         return true;

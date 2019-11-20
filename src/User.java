@@ -1,15 +1,19 @@
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
-public abstract class User {
+public abstract class User implements Serializable {
 	private String name;
 	private String password;
 	private String role;
+
+
 	
 	User(String name,String password,String role){
 		this.name=name;
 		this.password=password;
-		this.role=role;				
+		this.role=role;
 	}
 
 	public abstract void choose(int choice);
@@ -28,17 +32,22 @@ public abstract class User {
 
 	public boolean downloadFile(String filename) throws IOException{
 		double ranValue=Math.random();
-		if (ranValue>0.5)
-			throw new IOException( "Error in accessing file" );
+//		if (ranValue>0.5)
+//			throw new IOException( "Error in accessing file" );
+		DataProcessing.downloadFile(filename);
 		System.out.println("下载文件... ...");
 		return true;
 	}
 
 	public void showFileList() throws SQLException{
-		double ranValue=Math.random();
-		if (ranValue>0.5)
-			throw new SQLException( "Error in accessing file DB" );
+//		double ranValue=Math.random();
+//		if (ranValue>0.5)
+//			throw new SQLException( "Error in accessing file DB" );
+		Enumeration<Doc> e=DataProcessing.getAllDocs();
 		System.out.println("列表... ...");
+		while(e.hasMoreElements()) {
+			System.out.println(e.nextElement().getFilename());
+		}
 	}
 
 

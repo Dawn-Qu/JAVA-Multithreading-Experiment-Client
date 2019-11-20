@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -25,7 +26,7 @@ public class Operator extends User{
             switch (choice) {
                 case 1: {
                     System.out.print("请输入文件名：");
-                    uploadFile(scanner.nextLine());
+                    DataProcessing.uploadFile(scanner.nextLine(),getName());
                     break;
                 }
                 case 2: {
@@ -57,8 +58,5 @@ public class Operator extends User{
         }
     }
 
-    public boolean uploadFile(String filename){
-        System.out.println("上传文件... ...");
-        return true;
-    }
+
 }

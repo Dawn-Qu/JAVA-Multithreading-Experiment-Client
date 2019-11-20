@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Doc{
+public class Doc implements Serializable {
 	private String ID;
 	private String creator;
 	private Timestamp timestamp;
