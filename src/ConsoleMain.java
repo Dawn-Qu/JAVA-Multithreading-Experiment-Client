@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Main {
+public class ConsoleMain {
     public static void showMenuLogIn(){
         System.out.println("****欢迎进入档案系统****");
         System.out.println("1.登陆");
