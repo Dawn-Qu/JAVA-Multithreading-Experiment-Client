@@ -224,9 +224,22 @@ public class DataProcessing {
 	   docs.put(file.getName(), new Doc("0000", creator, new Timestamp(System.currentTimeMillis()), null, filename));
 	   save();
    }
-   public static void downloadFile(String filename)throws IOException{
-		File file=new File(SERVER_FILE_DIRECTORY+filename);
-		File destiny=new File(DOWNLOAD_DIRECTORY+filename);
-		Files.copy(file.toPath(),destiny.toPath());
-   }
+
+	public static void uploadFile(String fileID,String description,File file, String creator) throws IOException {
+		File destiny = new File(SERVER_FILE_DIRECTORY + file.getName());
+		Files.copy(file.toPath(), destiny.toPath());
+		docs.put(file.getName(), new Doc(fileID, creator, new Timestamp(System.currentTimeMillis()), description, file.getName()));
+		save();
+	}
+
+	public static void downloadFile(String filename) throws IOException {
+		File file = new File(SERVER_FILE_DIRECTORY + filename);
+		File destiny = new File(DOWNLOAD_DIRECTORY + filename);
+		Files.copy(file.toPath(), destiny.toPath());
+	}
+
+	public static void downloadFile(String filename, File downloadDir) throws IOException {
+		File file = new File(SERVER_FILE_DIRECTORY + filename);
+		Files.copy(file.toPath(), downloadDir.toPath());
+	}
 }

@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class LoginWindow extends JFrame {
-    private static int DEFAULT_WIDTH=640;
-    private static int DEFAULT_HEIGHT=400;
+    private static final int DEFAULT_WIDTH=640;
+    private static final int DEFAULT_HEIGHT=400;
     private JLabel labelUserName;
     private JLabel labelPassword;
     private JTextField editUserName;
@@ -46,5 +48,28 @@ public class LoginWindow extends JFrame {
         add(editPassword);
         add(buttonApply);
         add(buttonCancel);
+
+        buttonApply.addActionListener(event->{
+            try {
+                User user=DataProcessing.searchUser(editUserName.getText(), new String(editPassword.getPassword()));
+                if(user==null){//密码错误
+                    JOptionPane.showMessageDialog(this,"用户名或密码错误","用户名或密码错误",JOptionPane.ERROR_MESSAGE);
+                }
+                else{//密码正确
+                    //进入主界面
+                    setVisible(false);
+                    EventQueue.invokeLater(()->{
+                        MainWindow mainWindow=new MainWindow(user);
+                        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        mainWindow.setVisible(true);
+                    });
+                }
+            }catch (SQLException e){
+                JOptionPane.showMessageDialog(this,e.getMessage(),"数据库异常",JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        buttonCancel.addActionListener(event->{
+            dispose();
+        });
     }
 }
