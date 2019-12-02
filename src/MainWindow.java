@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class MainWindow extends JFrame {
     private static final int DEFAULT_WIDTH=1024;
@@ -51,12 +52,25 @@ public class MainWindow extends JFrame {
         }
 
         downloadDoc.addActionListener(event->{
-            FileWindow fileWindow=new FileWindow(FileWindow.DOWNLOAD,user);
-            fileWindow.setVisible(true);
+            EventQueue.invokeLater(()->{
+                FileWindow fileWindow=new FileWindow(FileWindow.DOWNLOAD,user);
+                fileWindow.setVisible(true);
+            });
+
         });
         uploadDoc.addActionListener(event->{
-            FileWindow fileWindow=new FileWindow(FileWindow.UPLOAD,user);
-            fileWindow.setVisible(true);
+            EventQueue.invokeLater(()->{
+                FileWindow fileWindow=new FileWindow(FileWindow.UPLOAD,user);
+                fileWindow.setVisible(true);
+            });
+
+        });
+        updateSelf.addActionListener(event->{
+            EventQueue.invokeLater(()->{
+                SelfInfoWindow selfInfoWindow=new SelfInfoWindow(user);
+                selfInfoWindow.setVisible(true);
+            });
+
         });
     }
 }
