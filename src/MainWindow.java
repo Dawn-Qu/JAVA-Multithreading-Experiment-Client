@@ -33,9 +33,10 @@ public class MainWindow extends JFrame {
         menubar.add(docManagement);
         menubar.add(selfManagement);
 
+        userManagement.add(addUser);
         userManagement.add(updateUser);
         userManagement.add(deleteUser);
-        userManagement.add(addUser);
+
         docManagement.add(uploadDoc);
         docManagement.add(downloadDoc);
         selfManagement.add(updateSelf);
@@ -71,6 +72,24 @@ public class MainWindow extends JFrame {
                 selfInfoWindow.setVisible(true);
             });
 
+        });
+        addUser.addActionListener(event->{
+            EventQueue.invokeLater(()->{
+                UserInfoWindow userInfoWindow=new UserInfoWindow(UserInfoWindow.ADD_USER);
+                userInfoWindow.setVisible(true);
+            });
+        });
+        updateUser.addActionListener(event->{
+            EventQueue.invokeLater(()->{
+                UserInfoWindow userInfoWindow=new UserInfoWindow(UserInfoWindow.UPDATE_USER);
+                userInfoWindow.setVisible(true);
+            });
+        });
+        deleteUser.addActionListener(event->{
+            EventQueue.invokeLater(()->{
+                UserInfoWindow userInfoWindow=new UserInfoWindow(UserInfoWindow.DELETE_USER);
+                userInfoWindow.setVisible(true);
+            });
         });
     }
 }
