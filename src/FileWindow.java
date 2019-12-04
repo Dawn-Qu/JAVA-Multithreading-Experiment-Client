@@ -148,6 +148,10 @@ public class FileWindow extends JFrame{
             catch(IOException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
             }
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(this,e.getMessage());
+
+            }
             dispose();
         });
 
