@@ -57,6 +57,7 @@ public class UserInfoWindow extends JFrame{
                 DataProcessing.deleteUser(userName);
                 refreshTable();
                 updateUserJanel.refreshNameBox();
+                JOptionPane.showMessageDialog(this,"删除成功");
             }
             catch(SQLException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
@@ -77,6 +78,9 @@ public class UserInfoWindow extends JFrame{
                 if(!success){
                     JOptionPane.showMessageDialog(this,"该用户名已存在");
                 }
+                else{
+                    JOptionPane.showMessageDialog(this,"添加成功");
+                }
             }
             catch(SQLException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
@@ -89,6 +93,9 @@ public class UserInfoWindow extends JFrame{
                 boolean success = DataProcessing.updateUser(String.valueOf(updateUserJanel.getEditName().getSelectedItem()), String.valueOf(updateUserJanel.getEditPassword().getPassword()), String.valueOf(updateUserJanel.getBoxRole().getSelectedItem()));
                 if(!success){
                     JOptionPane.showMessageDialog(this,"该用户不存在");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"修改成功");
                 }
             }
             catch(SQLException e){
@@ -229,7 +236,7 @@ class UpdateUserJanel extends JPanel{
         add(boxRole);
         add(buttonApply);
         add(buttonCancel);
-        boxRole.setEnabled(false);
+        //boxRole.setEnabled(false);
         buttonApply.setText("修改");
     }
 

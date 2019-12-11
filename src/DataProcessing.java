@@ -140,7 +140,7 @@ public class DataProcessing {
             save();
             String sql="INSERT INTO doc_info (Id,creator,timestamp,description,filename) VALUES (?,?,?,?,?);";
             PreparedStatement pstmt=connection.prepareStatement(sql);
-            pstmt.setInt(1,Integer.valueOf(ID));
+            pstmt.setString(1,ID);
             pstmt.setString(2,creator);
             pstmt.setTimestamp(3,timestamp);
             pstmt.setString(4,description);

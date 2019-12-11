@@ -93,6 +93,7 @@ public class FileWindow extends JFrame{
                 File file=chooser.getSelectedFile();
                 if(file!=null) {
                     DataProcessing.downloadFile(filename, file);
+                    JOptionPane.showMessageDialog(this,"下载成功");
                 }
             }
             catch(IOException e){
@@ -105,7 +106,7 @@ public class FileWindow extends JFrame{
     }
 
     private void initUploadPanel(){
-        JLabel docID=new JLabel("档案名");
+        JLabel docID=new JLabel("档案号");
         JLabel docDescribe=new JLabel("档案描述");
         JLabel docFilename=new JLabel("档案文件名");
         JTextField editDocID=new JTextField();
@@ -144,9 +145,10 @@ public class FileWindow extends JFrame{
         buttonUpload.addActionListener(event -> {
             try {
                 DataProcessing.uploadFile(editDocID.getText(), editDocDescribe.getText(), new File(editFilename.getText()), m_user.getName());
+                JOptionPane.showMessageDialog(this,"上传成功");
             }
             catch(IOException e){
-                JOptionPane.showMessageDialog(this,e.getMessage());
+                JOptionPane.showMessageDialog(this,"文件已存在");
             }
             catch(SQLException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());

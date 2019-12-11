@@ -80,6 +80,7 @@ public class SelfInfoWindow extends JFrame{
                 else
                 {
                     DataProcessing.updateUser(editName.getText(), String.valueOf(editNewPassword.getPassword()), editRole.getText());
+                    JOptionPane.showMessageDialog(this,"修改成功");
                     dispose();
                 }
             }

@@ -57,6 +57,7 @@ public class LoginWindow extends JFrame {
                 }
                 else{//密码正确
                     //进入主界面
+                    JOptionPane.showMessageDialog(this,"登陆成功");
                     setVisible(false);
                     EventQueue.invokeLater(()->{
                         MainWindow mainWindow=new MainWindow(user);
