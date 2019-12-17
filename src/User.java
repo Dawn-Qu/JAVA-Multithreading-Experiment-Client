@@ -18,7 +18,7 @@ public abstract class User implements Serializable {
 
 	public abstract void choose(int choice);
 
-	public boolean changeSelfInfo(String password) throws SQLException {
+	public boolean changeSelfInfo(String password) throws SQLException,IOException {
 		//写用户信息到存储
 		if (DataProcessing.updateUser(name, password, role)){
 			this.password=password;
@@ -30,7 +30,7 @@ public abstract class User implements Serializable {
 	
 	public abstract void showMenu();
 
-	public boolean downloadFile(String filename) throws IOException{
+	public boolean downloadFile(String filename) throws IOException,ClassNotFoundException{
 		double ranValue=Math.random();
 //		if (ranValue>0.5)
 //			throw new IOException( "Error in accessing file" );

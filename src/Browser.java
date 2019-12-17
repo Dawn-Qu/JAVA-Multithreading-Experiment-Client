@@ -54,5 +54,9 @@ public class Browser extends User {
         catch(IOException e){
             System.out.println(e.getMessage());
         }
+
+        catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

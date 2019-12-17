@@ -87,6 +87,9 @@ public class Administrator extends User {
         catch(IOException e){
             System.out.println(e.getMessage());
         }
+        catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
     public boolean changeOtherUserInfo(User user){
         System.out.println("修改成功");

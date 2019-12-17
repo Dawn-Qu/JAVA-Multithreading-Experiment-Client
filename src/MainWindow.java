@@ -1,5 +1,10 @@
+import javapractice.Message;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
     private static final int DEFAULT_WIDTH=1024;
@@ -40,6 +45,20 @@ public class MainWindow extends JFrame {
         docManagement.add(uploadDoc);
         docManagement.add(downloadDoc);
         selfManagement.add(updateSelf);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                super.windowClosed(event);
+                try {
+                    Message message = new Message(">>>LINK_CLOSE", DataProcessing.linkedUser.getName(),null,null,Message.CLOSE);
+                    DataProcessing.sendMessage(message);
+                }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         setJMenuBar(menubar);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);

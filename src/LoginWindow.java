@@ -1,6 +1,11 @@
+import javapractice.Message;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginWindow extends JFrame {
@@ -49,6 +54,13 @@ public class LoginWindow extends JFrame {
         add(buttonApply);
         add(buttonCancel);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent event) {
+                super.windowClosed(event);
+            }
+        });
+
         buttonApply.addActionListener(event->{
             try {
                 User user=DataProcessing.searchUser(editUserName.getText(), new String(editPassword.getPassword()));
@@ -57,6 +69,7 @@ public class LoginWindow extends JFrame {
                 }
                 else{//密码正确
                     //进入主界面
+                    DataProcessing.linkServer(editUserName.getText());
                     JOptionPane.showMessageDialog(this,"登陆成功");
                     setVisible(false);
                     EventQueue.invokeLater(()->{
@@ -67,6 +80,8 @@ public class LoginWindow extends JFrame {
                 }
             }catch (SQLException e){
                 JOptionPane.showMessageDialog(this,e.getMessage(),"数据库异常",JOptionPane.ERROR_MESSAGE);
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(this,e.getMessage(),"输入输出异常",JOptionPane.ERROR_MESSAGE);
             }
         });
         buttonCancel.addActionListener(event->{

@@ -1,5 +1,7 @@
+import javapractice.Message;
+
 import java.io.*;
-import java.nio.file.Files;
+import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.sql.*;
@@ -14,9 +16,17 @@ public class DataProcessing {
     static String DIRECTORY_TO_UPLOAD = "E:\\JAVA practice\\FilesToUpload\\";
     static String DOWNLOAD_DIRECTORY = "E:\\JAVA practice\\Download\\";
     static String driverName = "com.mysql.cj.jdbc.Driver";               // 加载数据库驱动类
-    static String URL = "jdbc:mysql://localhost:3306/document?serverTimezone=GMT%2B8";       // 声明数据库的URL
+    static String URL = "jdbc:mysql://111.229.228.57:3306/document?serverTimezone=GMT%2B8";       // 声明数据库的URL
+//    static String URL = "jdbc:mysql://127.0.0.1:3306/document?serverTimezone=GMT%2B8";
     static String USER = "root";                                      // 数据库用户
-    static String PASSWORD = "";
+    static String PASSWORD = "root";
+    static User linkedUser;
+    public static final int SERVER_PORT=12345;
+    public static final String LOCAL_HOST="127.0.0.1";
+    public static final String SERVER_HOST="111.229.228.57";
+    static Socket socket;
+    static ObjectOutputStream oos;
+    static ObjectInputStream ois;
     static Hashtable<String, User> users;
     static Hashtable<String, Doc> docs;
 
@@ -47,6 +57,15 @@ public class DataProcessing {
         Class.forName(driverName);
         connection = DriverManager.getConnection(URL, USER, PASSWORD);   // 建立数据库连接
         refreshDataFromDb();
+    }
+
+    public static void linkServer(String username)throws IOException,SQLException {
+        socket=new Socket(SERVER_HOST,SERVER_PORT);
+        oos=new ObjectOutputStream(socket.getOutputStream());
+        ois =new ObjectInputStream(socket.getInputStream());
+        linkedUser =searchUser(username);
+        Message message=new Message(">>>USER_LINK",username);
+        sendMessage(message);
     }
 
     public static void refreshDataFromDb() throws SQLException {
@@ -137,7 +156,7 @@ public class DataProcessing {
         else {
             doc = new Doc(ID, creator, timestamp, description, filename);
             docs.put(ID, doc);
-            save();
+//            save();
             String sql="INSERT INTO doc_info (Id,creator,timestamp,description,filename) VALUES (?,?,?,?,?);";
             PreparedStatement pstmt=connection.prepareStatement(sql);
             pstmt.setString(1,ID);
@@ -191,7 +210,7 @@ public class DataProcessing {
     }
 
 
-    public static boolean updateUser(String name, String password, String role) throws SQLException {
+    public static boolean updateUser(String name, String password, String role) throws SQLException,IOException {
         User user;
 //		if ( !connectToDB )
 //	        throw new SQLException( "Not Connected to Database" );
@@ -208,19 +227,25 @@ public class DataProcessing {
             else
                 user = new Browser(name, password, role);
             users.put(name, user);
-            save();
+//            save();
             String sql="UPDATE user_info SET password=?,role=? WHERE username=?;";
             PreparedStatement pstmt=connection.prepareStatement(sql);
             pstmt.setString(1,password);
             pstmt.setString(2,role);
             pstmt.setString(3,name);
             pstmt.executeUpdate();
+            Message message=new Message(">>>UPDATE_USER",user.getName());
+//            ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+//            oos.writeObject(message);
+//            oos.flush();
+//            oos.close();
+            sendMessage(message);
             return true;
         } else
             return false;
     }
 
-    public static boolean insertUser(String name, String password, String role) throws SQLException {
+    public static boolean insertUser(String name, String password, String role) throws SQLException,IOException {
         User user;
 
 //		if ( !connectToDB )
@@ -240,18 +265,24 @@ public class DataProcessing {
             else
                 user = new Browser(name, password, role);
             users.put(name, user);
-            save();
+//            save();
             String sql="INSERT INTO user_info (username,password,role) VALUES (?,?,?);";
             PreparedStatement pstmt=connection.prepareStatement(sql);
             pstmt.setString(1,name);
             pstmt.setString(2,password);
             pstmt.setString(3,role);
             pstmt.executeUpdate();
+            Message message=new Message(">>>ADD_USER",linkedUser.getName());
+//            ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+//            oos.writeObject(message);
+//            oos.flush();
+//            oos.close();
+            sendMessage(message);
             return true;
         }
     }
 
-    public static boolean deleteUser(String name) throws SQLException {
+    public static boolean deleteUser(String name) throws SQLException,IOException {
 //		if ( !connectToDB )
 //	        throw new SQLException( "Not Connected to Database" );
 //
@@ -261,10 +292,16 @@ public class DataProcessing {
 
         if (users.containsKey(name)) {
             users.remove(name);
-            save();
+//            save();
             PreparedStatement pstmt=connection.prepareStatement("DELETE FROM user_info WHERE username=?;");
             pstmt.setString(1,name);
             pstmt.executeUpdate();
+            Message message=new Message(">>>DELETE_USER", linkedUser.getName());
+//            ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+//            oos.writeObject(message);
+//            oos.flush();
+//            oos.close();
+            sendMessage(message);
             return true;
         } else
             return false;
@@ -286,28 +323,91 @@ public class DataProcessing {
 
     public static void uploadFile(String filename, String creator) throws IOException,SQLException {
         File file = new File(DIRECTORY_TO_UPLOAD + filename);
-        File destiny = new File(SERVER_FILE_DIRECTORY + filename);
-        Files.copy(file.toPath(), destiny.toPath());
+//        File destiny = new File(SERVER_FILE_DIRECTORY + filename);
+//        Files.copy(file.toPath(), destiny.toPath());
+
+        FileInputStream fis=new FileInputStream(file);
+        long length=file.length();
+        byte[] bytes=new byte[(int)length];
+        fis.read(bytes);
+        Message message=new Message(">>>UPLOAD_FILE",creator,file.getName(),bytes,Message.UPLOAD);
+//        ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+//        oos.writeObject(message);
+//        oos.flush();
+//        oos.close();
+        sendMessage(message);
+        fis.close();
         insertDoc("0000", creator, new Timestamp(System.currentTimeMillis()), null, filename);
         //save();
     }
 
     public static void uploadFile(String fileID, String description, File file, String creator) throws IOException,SQLException {
-        File destiny = new File(SERVER_FILE_DIRECTORY + file.getName());
-        Files.copy(file.toPath(), destiny.toPath());
+//        File destiny = new File(SERVER_FILE_DIRECTORY + file.getName());
+//        Files.copy(file.toPath(), destiny.toPath());
+        FileInputStream fis=new FileInputStream(file);
+        long length=file.length();
+        byte[] bytes=new byte[(int)length];
+        fis.read(bytes);
+        Message message=new Message(">>>UPLOAD_FILE",creator,file.getName(),bytes,Message.UPLOAD);
+//        ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+//        oos.writeObject(message);
+//        oos.flush();
+//        oos.close();
+        sendMessage(message);
+        fis.close();
         //docs.put(file.getName(), new Doc(fileID, creator, new Timestamp(System.currentTimeMillis()), description, file.getName()));
         insertDoc(fileID,creator,new Timestamp(System.currentTimeMillis()),description,file.getName());
         //save();
     }
 
-    public static void downloadFile(String filename) throws IOException {
-        File file = new File(SERVER_FILE_DIRECTORY + filename);
-        File destiny = new File(DOWNLOAD_DIRECTORY + filename);
-        Files.copy(file.toPath(), destiny.toPath());
+    public static Message downloadFile(String filename) throws IOException,ClassNotFoundException {
+        //File file = new File(SERVER_FILE_DIRECTORY + filename);
+        File downloadFile = new File(DOWNLOAD_DIRECTORY + filename);
+        //Files.copy(file.toPath(), destiny.toPath());
+        Message request=new Message(">>>DOWNLOAD_FILE", linkedUser.getName(),filename,null,Message.DOWNLOAD);
+        sendMessage(request);
+        Message message;
+        message=(Message) ois.readObject();
+        byte[] data=message.getFiledata();
+        if(!downloadFile.exists()){
+            boolean isCreatedSuccess= downloadFile.createNewFile();
+            if(!isCreatedSuccess){
+                throw new IOException("File creating fail");
+            }
+        }
+        FileOutputStream fos=new FileOutputStream(downloadFile);
+        fos.write(data);
+        fos.close();
+        ois.close();
+        return message;
     }
 
-    public static void downloadFile(String filename, File downloadDir) throws IOException {
-        File file = new File(SERVER_FILE_DIRECTORY + filename);
-        Files.copy(file.toPath(), downloadDir.toPath());
+    public static Message downloadFile(String filename, File downloadFile) throws IOException,ClassNotFoundException{
+//        File file = new File(SERVER_FILE_DIRECTORY + filename);
+//        Files.copy(file.toPath(), downloadDir.toPath());
+        Message request=new Message(">>>DOWNLOAD_FILE", linkedUser.getName(),filename,null,Message.DOWNLOAD);
+        sendMessage(request);
+        Message message;
+        message=(Message) ois.readObject();
+        byte[] data=message.getFiledata();
+
+        if(!downloadFile.exists()){
+            boolean isCreatedSuccess= downloadFile.createNewFile();
+            if(!isCreatedSuccess){
+                throw new IOException("File creating fail");
+            }
+        }
+        FileOutputStream fos=new FileOutputStream(downloadFile);
+        fos.write(data);
+        fos.close();
+        ois.close();
+        return message;
+    }
+
+    public static void sendMessage(Message message)throws IOException{
+        //ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+        oos.writeObject(message);
+        oos.flush();
+        //oos.close();
     }
 }

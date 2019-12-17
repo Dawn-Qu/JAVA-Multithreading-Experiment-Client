@@ -91,12 +91,17 @@ public class FileWindow extends JFrame{
                 chooser.showSaveDialog(this);
                 chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 File file=chooser.getSelectedFile();
+//                System.out.println(chooser.getCurrentDirectory());
+//                System.out.println(chooser.getSelectedFile());
                 if(file!=null) {
                     DataProcessing.downloadFile(filename, file);
                     JOptionPane.showMessageDialog(this,"下载成功");
                 }
             }
             catch(IOException e){
+                JOptionPane.showMessageDialog(this,e.getStackTrace());
+            }
+            catch(ClassNotFoundException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
             }
         });

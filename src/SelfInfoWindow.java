@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class SelfInfoWindow extends JFrame{
@@ -85,6 +86,9 @@ public class SelfInfoWindow extends JFrame{
                 }
             }
             catch(SQLException e){
+                JOptionPane.showMessageDialog(this,e.getMessage());
+            }
+            catch(IOException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
             }
         });

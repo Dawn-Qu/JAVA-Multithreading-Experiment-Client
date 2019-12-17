@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.crypto.Data;
 import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
@@ -62,6 +63,9 @@ public class UserInfoWindow extends JFrame{
             catch(SQLException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
             }
+            catch (IOException e){
+                JOptionPane.showMessageDialog(this,e.getMessage());
+            }
         });
         buttonBack.addActionListener(event->{
             dispose();
@@ -85,6 +89,9 @@ public class UserInfoWindow extends JFrame{
             catch(SQLException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
             }
+            catch(IOException e){
+                JOptionPane.showMessageDialog(this,e.getMessage());
+            }
             refreshTable();
             updateUserJanel.refreshNameBox();
         });
@@ -99,6 +106,9 @@ public class UserInfoWindow extends JFrame{
                 }
             }
             catch(SQLException e){
+                JOptionPane.showMessageDialog(this,e.getMessage());
+            }
+            catch(IOException e){
                 JOptionPane.showMessageDialog(this,e.getMessage());
             }
             refreshTable();

@@ -56,6 +56,9 @@ public class Operator extends User{
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
+        catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 
 
